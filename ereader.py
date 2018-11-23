@@ -31,10 +31,8 @@ GPIO.setup(key3, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 GPIO.setup(key4, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 
 checkpoint_util = BCMUtil()
-greeting = "Loading Fleet Fox Blockchain Messaging Service..."
+greeting = "Loading eReader..."
 print(greeting)
-#greeting= "ANALOG.EARTH\n\nTo the future machine with the computational power to unlock today's encrypted secrets. To the future human with the spiritual power to unlock all secrets.\n\n"
-
 
 def exit_handler():
     pass
@@ -55,6 +53,8 @@ def update_2in7epd(text_string,image_path, sleep_sec):
     frame_red = [0] * int((epd.width * epd.height / 8))
     font = ImageFont.truetype('/usr/share/fonts/truetype/freefont/FreeMono.ttf', 14)
 
+    text_string = checkpoint_util.format_string_to_2in7epd(text_string)
+    
     print(text_string)
 
     if image_path:
@@ -67,10 +67,16 @@ def update_2in7epd(text_string,image_path, sleep_sec):
 
 atexit.register(exit_handler)
 
-home_greeting = "Fleet Fox Receiver\nanalog.earth\n\nKey1:Home\nKey2:Account\nKey3:GPS Coords\nKey4: Sync \n\nKey1+Key2: Ping\nKey1+Key3:Drop Pin\nKey1+Key4: Exit"
+home_greeting = "1984 by George Orwell\neReader by Analog Labs\nanalog.earth\n\nKey1:Home\nKey2:Prev Page\nKey3:Next Page\nKey4: Exit"
 #frame_black = epd.get_frame_buffer(Image.open('foxbw.bmp'))
 #epd.draw_string_at(frame_black, 4, 4, msg_util.format_string_to_2in7epd(greeting), font, COLORED)
 #epd.display_frame(frame_black, frame_red)
+
+BOOKMARK = -1
+CHAR_INCREMENT = 200
+
+txt = open('1984.txt','r').read()
+txt = txt.replace('\n',' ')
 
 update_2in7epd(home_greeting,None,0)
 
@@ -89,14 +95,18 @@ while True:
                     exit(0)
 
                 if not key1state and key2state and key3state and key4state:
-                    DISPLAY_HOME_TO_EPD = 1
-                if not key2state and key1state and key3state and key4state:
-                    DISPLAY_STATUS_TO_EPD = 1
-                if not key3state and key1state and key2state and key4state:
-                    DISPLAY_COORDS_TO_EPD = 1
-                if not key4state and key1state and key2state and key3state:
-                    display_string = "Downloading Chkpts..."
-                    update_2in7epd(display_string, None, 0) 
+                    update_2in7epd(home_greeting,None,0)
 
+                if not key2state and key1state and key3state and key4state:
+                    if BOOKMARK < 0:
+                        BOOKMARK = 0
+                    elif BOOKMARK - CHAR_INCREMENT > 0:
+                        BOOKMARK -= CHAR_INCREMENT
+                        update_2in7epd(txt[BOOKMARK:BOOKMARK+CHAR_INCREMENT],None,0)
+
+                if not key3state and key1state and key2state and key4state:
+                    if BOOKMARK + CHAR_INCREMENT < len(txt):
+                        BOOKMARK += CHAR_INCREMENT
+                        update_2in7epd(txt[BOOKMARK:BOOKMARK+CHAR_INCREMENT],None,0)
 
 
