@@ -28,17 +28,23 @@ class BCMUtil:
         words = string_in.split(' ')
 
         for w in words:
+            curr_word = w
             if len(w) > 20:
                 print('No words greater than 20 characters!')
-                return
-            row_length = len(row) + len(w) + 1
+                curr_word = w[:10]+'-\n'+w[10:]+' '
+                row = w[10:]
+            
+            # new projected row length
+            row_length = len(row) + len(curr_word) + 1
+            print('Row length: ',row_length)
+
             if row_length > 20:
                 display_string += '\n'
-                display_string += w + ' '
-                row = w + ' '
+                display_string += curr_word + ' '
+                row = curr_word + ' '
             else:
-                row += w + ' '
-                display_string += w + ' '
+                row += curr_word + ' '
+                display_string += curr_word + ' '
 
         return display_string
 
