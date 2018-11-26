@@ -1,9 +1,10 @@
 # RPI-based e-Reader 
 ## DIY kit source code
 (C) 2018 Omar Metwally, MD
+
 [omar@analog.earth](mailto:omar@analog.earth)
+
 Analog Labs, Logisome Inc R&D
-License: 
 
 This repository contains the source code accompanying Analog Labs' (AL) DIY kit, [How to Build an e-Reader](https://www.analog.earth). The e-Reader displays user-defined text on a low-energy e-Paper display and lets the user toggle pages using keys on the keyboard.
 
@@ -13,7 +14,7 @@ The e-Reader can be assembling using the following components:
 1. Raspberry Pi (RPI)
 2. e-ink display
 3. Micro-SD card running Raspbian or another Linux-based OS that supports ARM7 architecture.
-4. Power cable.
+4. Power cable
 5. This source code
 
 The e-Reader kit can also be purchased ready to use out-of-the-box from [Analog Labs](https://www.analog.earth). Each kit comes with an illustrated, narrative-based instruction guide  on how to assemble your own e-Reader and use it to read George Orwell's *Nineteen Eighty-Four*.
