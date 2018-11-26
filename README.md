@@ -1,5 +1,5 @@
-#RPI-based e-Reader 
-##DIY kit source code
+# RPI-based e-Reader 
+## DIY kit source code
 (C) 2018 Omar Metwally, MD
 [omar@analog.earth](mailto:omar@analog.earth)
 Analog Labs, Logisome Inc R&D
@@ -53,3 +53,4 @@ SOFTWARE.
 
 
  
+
